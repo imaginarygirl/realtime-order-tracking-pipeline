@@ -2,12 +2,14 @@ import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions, StandardOptions
 import json
 import argparse
-from datetime import datetime
+from datetime import datetime, timezone
 
 class ParseOrderEvent(beam.DoFn):
     def process(self, element):
         message = json.loads(element.decode('utf-8'))
-        message['event_timestamp'] = datetime.utcnow().isoformat()
+        #message['event_timestamp'] = datetime.utcnow().isoformat()
+        message["event_timestamp"] = datetime.now(timezone.utc).isoformat()
+
         yield message
 
 def run(project_id, topic, dataset_id, table_id, region):
@@ -26,6 +28,7 @@ def run(project_id, topic, dataset_id, table_id, region):
             p
             | "Read from Pub/Sub" >> beam.io.ReadFromPubSub(topic=topic)
             | "Parse JSON" >> beam.ParDo(ParseOrderEvent())
+            | "Log Messages" >> beam.Map(print)
             | "Write to BigQuery" >> beam.io.WriteToBigQuery(
                 table=f"{project_id}:{dataset_id}.{table_id}",
                 schema='order_id:STRING,status:STRING,timestamp:STRING,event_timestamp:TIMESTAMP',

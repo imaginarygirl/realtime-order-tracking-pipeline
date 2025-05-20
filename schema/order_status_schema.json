@@ -1,5 +1,6 @@
 {
   "order_id": "string",
   "status": "string",
-  "timestamp": "ISO8601 string"
+  "timestamp": "ISO8601 string",
+  "event_timestamp": "timestamp"
 }

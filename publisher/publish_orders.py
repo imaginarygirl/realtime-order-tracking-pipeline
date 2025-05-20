@@ -2,8 +2,7 @@ from google.cloud import pubsub_v1
 import json
 import time
 import random
-from datetime import datetime
-
+from datetime import datetime, timezone
 
 PROJECT_ID = 'realtime-order-track-pipeline'
 TOPIC_ID = 'order-status-events'
@@ -20,7 +19,8 @@ def generate_event():
     event = {
         "order_id": order_id,
         "status": status,
-        "timestamp": datetime.utcnow().isoformat()
+        #"timestamp": datetime.utcnow().isoformat()
+        "timestamp": datetime.now(timezone.utc).isoformat()
     }
     return json.dumps(event).encode("utf-8")
 

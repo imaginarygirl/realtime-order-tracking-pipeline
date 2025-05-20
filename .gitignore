@@ -7,3 +7,6 @@
 # Python-specific ignores (optional but helpful)
 __pycache__/
 *.pyc
+
+.DS_Store
+

@@ -5,7 +5,7 @@ import random
 from datetime import datetime
 
 
-PROJECT_ID = 'realtime-order-tracking-pipeline'
+PROJECT_ID = 'realtime-order-track-pipeline'
 TOPIC_ID = 'order-status-events'
 
 publisher = pubsub_v1.PublisherClient()

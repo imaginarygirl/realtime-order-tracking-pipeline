@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 
 credentials, _ = default()
 publisher = pubsub_v1.PublisherClient(credentials=credentials)
-topic_path = publisher.topic_path("realtime-order-track-pipeline", "order-status-events")
+topic_path = publisher.topic_path("realtime-order-track-pipeline", "debug-topic")
 
 ORDER_STATUSES = ['created', 'packed', 'shipped', 'delivered']
 ORDER_IDS = [f'ORD-{i:04}' for i in range(1, 11)]

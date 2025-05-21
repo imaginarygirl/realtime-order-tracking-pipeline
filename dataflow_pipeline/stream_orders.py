@@ -6,10 +6,9 @@ from datetime import datetime, timezone
 
 class ParseOrderEvent(beam.DoFn):
     def process(self, element):
-        message = json.loads(element.decode('utf-8'))
-        #message['event_timestamp'] = datetime.utcnow().isoformat()
+        message = json.loads(element.decode("utf-8"))
         message["event_timestamp"] = datetime.now(timezone.utc).isoformat()
-
+        print("PARSED MESSAGE:", message)
         yield message
 
 def run(project_id, topic, dataset_id, table_id, region):

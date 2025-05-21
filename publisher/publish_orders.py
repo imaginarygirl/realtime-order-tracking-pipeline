@@ -5,12 +5,13 @@ import random
 from datetime import datetime, timezone
 from google.auth import default
 
-
+credentials, _ = default()
+publisher = pubsub_v1.PublisherClient(credentials=credentials)
 PROJECT_ID = 'realtime-order-track-pipeline'
 TOPIC_ID = 'order-status-events'
 
-credentials, _ = default()
-publisher = pubsub_v1.PublisherClient(credentials=credentials)
+#credentials, _ = default()
+#publisher = pubsub_v1.PublisherClient(credentials=credentials)
 topic_path = publisher.topic_path(PROJECT_ID, TOPIC_ID)
 
 ORDER_STATUSES = ['created', 'packed', 'shipped', 'delivered']

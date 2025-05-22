@@ -42,7 +42,7 @@ def run(project_id, topic, dataset_id, table_id, region):
     with beam.Pipeline(options=options) as p:
         (
             p
-            | "Read from Pub/Sub" >> beam.io.ReadFromPubSub(topic=topic)
+            | "Read from Pub/Sub" >> beam.io.ReadFromPubSub(topic=topic).with_output_types(bytes)
             | "Parse JSON" >> beam.ParDo(ParseOrderEvent())
             | "Log Messages" >> beam.Map(print)
             | "Write to BigQuery" >> beam.io.WriteToBigQuery(

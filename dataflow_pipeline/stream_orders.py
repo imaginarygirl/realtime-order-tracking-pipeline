@@ -21,6 +21,12 @@ class ParseOrderEvent(beam.DoFn):
 
 
 def run(project_id, topic, dataset_id, table_id, region):
+    print("  Starting pipeline with:")
+    print("  Project:", project_id)
+    print("  Topic:", topic)
+    print("  Dataset:", dataset_id)
+    print("  Table:", table_id)
+    print("  Region:", region)
     options = PipelineOptions(
         streaming=True,
         project=project_id,
@@ -30,6 +36,8 @@ def run(project_id, topic, dataset_id, table_id, region):
         save_main_session=True,
     )
     options.view_as(StandardOptions).runner = 'DataflowRunner'
+
+    print(" Building pipeline...")
 
     with beam.Pipeline(options=options) as p:
         (

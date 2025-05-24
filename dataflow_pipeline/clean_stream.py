@@ -42,9 +42,10 @@ def run():
 
     logging.info("Starting Dataflow pipeline...")
 
+    subscription_path = f"projects/{project_id}/subscriptions/clean-orders-sub"
+    
     with beam.Pipeline(options=options) as p:
         parsed = (p
-            subscription_path = f"projects/{project_id}/subscriptions/clean-orders-sub"
             | "ReadFromPubSub" >> beam.io.ReadFromPubSub(subscription=subscription_path).with_output_types(bytes)
             | "ParseMessage" >> beam.ParDo(ParseMessage()).with_outputs('failed', main='parsed')
         )

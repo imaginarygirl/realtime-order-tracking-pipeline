@@ -44,7 +44,8 @@ def run():
 
     with beam.Pipeline(options=options) as p:
         parsed = (p
-            | "ReadFromPubSub" >> beam.io.ReadFromPubSub(topic=topic).with_output_types(bytes)
+            subscription_path = f"projects/{project_id}/subscriptions/clean-orders-sub"
+            | "ReadFromPubSub" >> beam.io.ReadFromPubSub(subscription=subscription_path).with_output_types(bytes)
             | "ParseMessage" >> beam.ParDo(ParseMessage()).with_outputs('failed', main='parsed')
         )
 

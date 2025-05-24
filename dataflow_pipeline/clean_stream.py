@@ -6,11 +6,15 @@ from datetime import datetime, timezone
 
 class ParseMessage(beam.DoFn):
     def process(self, element):
-        print("📦 RAW ELEMENT:", element)
-        message = json.loads(element.decode("utf-8"))
-        message["event_timestamp"] = datetime.now(timezone.utc).isoformat()
-        print("✅ PARSED MESSAGE:", message)
-        yield message
+        try:
+            print("📦 RAW ELEMENT:", element)
+            message = json.loads(element.decode("utf-8"))
+            message["event_timestamp"] = datetime.now(timezone.utc).isoformat()
+            print("✅ PARSED MESSAGE:", message)
+            yield message
+        except Exception as e:
+            print("❌ ERROR PARSING ELEMENT:", element)
+            print("Exception:", str(e))
 
 def run():
     project_id = "realtime-order-track-pipeline"
@@ -27,6 +31,8 @@ def run():
         save_main_session=True,
     )
     options.view_as(StandardOptions).runner = "DataflowRunner"
+
+    print("🚀 Starting Dataflow pipeline")
 
     with beam.Pipeline(options=options) as p:
         (p

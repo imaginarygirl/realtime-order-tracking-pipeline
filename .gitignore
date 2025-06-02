@@ -10,5 +10,6 @@ __pycache__/
 
 .DS_Store
 
-.env
+
+#ignore file
 .env.txt

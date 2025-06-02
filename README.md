@@ -1,4 +1,3 @@
-```markdown
 # 📦 Real-Time Order Tracking Pipeline
 
 This project showcases a **real-time data engineering pipeline** built on **Google Cloud Platform (GCP)**, designed to ingest, process, and visualize order status events.
@@ -11,13 +10,11 @@ This project showcases a **real-time data engineering pipeline** built on **Goog
 - **Looker Studio (Google Data Studio)**: For live dashboards and visualization  
 
 ## 🏗️ **Architecture**
-```
 
 \[Order Status Events] → \[Pub/Sub] → \[Dataflow] → \[BigQuery]
 ↘
 \[Cloud Functions → Email Alerts]
 
-````
 
 - Orders are ingested via Pub/Sub topics (simulating API ingestion).
 - Dataflow processes events, adds timestamps, and writes to BigQuery.
@@ -33,7 +30,7 @@ This project showcases a **real-time data engineering pipeline** built on **Goog
 ```bash
 git clone https://github.com/imaginarygirl/realtime-order-tracking-pipeline.git
 cd realtime-order-tracking-pipeline
-````
+```
 
 2️⃣ **Set Up GCP Services**
 
